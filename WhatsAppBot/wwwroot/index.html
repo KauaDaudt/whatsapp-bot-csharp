@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WhatsAppBot Config</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    header .logo {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    header p {
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+
+    .card {
+      background: #1e2130;
+      border: 1px solid #2d3149;
+      border-radius: 1rem;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      border-bottom: 1px solid #2d3149;
+      padding-bottom: 0.75rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    input, textarea {
+      background: #0f1117;
+      border: 1px solid #2d3149;
+      border-radius: 0.5rem;
+      color: #e2e8f0;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      padding: 0.625rem 0.875rem;
+      width: 100%;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #25d366;
+      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1.25rem;
+      border-radius: 0.5rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+
+    .btn:active { transform: scale(0.97); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      width: 100%;
+    }
+
+    .btn-primary:hover:not(:disabled) { opacity: 0.9; }
+
+    .btn-danger {
+      background: #dc2626;
+      color: #fff;
+      flex: 1;
+    }
+
+    .btn-danger:hover:not(:disabled) { opacity: 0.85; }
+
+    .clear-row {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .clear-row input { flex: 1; }
+
+    /* Toast */
+    #toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 9999;
+    }
+
+    .toast {
+      background: #1e2130;
+      border: 1px solid #2d3149;
+      border-radius: 0.625rem;
+      padding: 0.75rem 1.125rem;
+      font-size: 0.875rem;
+      color: #e2e8f0;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      animation: slideIn 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      max-width: 320px;
+    }
+
+    .toast.success { border-left: 3px solid #25d366; }
+    .toast.error   { border-left: 3px solid #ef4444; }
+
+    @keyframes slideIn {
+      from { transform: translateX(110%); opacity: 0; }
+      to   { transform: translateX(0);    opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateX(110%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">💬</div>
+      <div>
+        <h1>WhatsAppBot</h1>
+        <p>Bot configuration panel</p>
+      </div>
+    </header>
+
+    <!-- Config Card -->
+    <div class="card">
+      <h2>Bot Settings</h2>
+
+      <div class="field">
+        <label>Phone Number (optional identifier)</label>
+        <input type="text" id="phoneNumber" placeholder="+5511999999999" />
+      </div>
+
+      <div class="field">
+        <label>System Prompt</label>
+        <textarea id="systemPrompt" placeholder="You are a helpful assistant..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Evolution API URL</label>
+        <input type="text" id="evolutionApiUrl" placeholder="http://localhost:8080" />
+      </div>
+
+      <div class="field">
+        <label>Evolution API Key</label>
+        <input type="text" id="evolutionApiKey" placeholder="your-api-key" />
+      </div>
+
+      <button class="btn btn-primary" id="saveBtn" onclick="saveConfig()">
+        Save Configuration
+      </button>
+    </div>
+
+    <!-- Clear History Card -->
+    <div class="card">
+      <h2>Clear Conversation History</h2>
+      <p style="font-size:0.875rem;color:#64748b;">Remove all stored messages for a specific phone number.</p>
+      <div class="clear-row">
+        <input type="text" id="clearPhone" placeholder="+5511999999999" />
+        <button class="btn btn-danger" onclick="clearHistory()">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script>
+    async function loadConfig() {
+      try {
+        const res = await fetch('/api/config');
+        if (!res.ok) return;
+        const data = await res.json();
+        document.getElementById('phoneNumber').value    = data.phoneNumber    ?? '';
+        document.getElementById('systemPrompt').value  = data.systemPrompt   ?? '';
+        document.getElementById('evolutionApiUrl').value = data.evolutionApiUrl ?? '';
+        document.getElementById('evolutionApiKey').value = data.evolutionApiKey ?? '';
+      } catch (e) {
+        showToast('Failed to load config', 'error');
+      }
+    }
+
+    async function saveConfig() {
+      const btn = document.getElementById('saveBtn');
+      btn.disabled = true;
+      btn.textContent = 'Saving…';
+
+      const body = {
+        phoneNumber:    document.getElementById('phoneNumber').value,
+        systemPrompt:  document.getElementById('systemPrompt').value,
+        evolutionApiUrl: document.getElementById('evolutionApiUrl').value,
+        evolutionApiKey: document.getElementById('evolutionApiKey').value,
+      };
+
+      try {
+        const res = await fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (res.ok) {
+          showToast('Configuration saved successfully', 'success');
+        } else {
+          showToast('Failed to save configuration', 'error');
+        }
+      } catch (e) {
+        showToast('Network error', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Save Configuration';
+      }
+    }
+
+    async function clearHistory() {
+      const phone = document.getElementById('clearPhone').value.trim();
+      if (!phone) { showToast('Enter a phone number first', 'error'); return; }
+
+      const encoded = encodeURIComponent(phone);
+      try {
+        const res = await fetch(`/api/config/history/${encoded}`, { method: 'DELETE' });
+        if (res.ok) {
+          const data = await res.json();
+          showToast(`Cleared ${data.deleted} message(s)`, 'success');
+          document.getElementById('clearPhone').value = '';
+        } else {
+          showToast('Failed to clear history', 'error');
+        }
+      } catch (e) {
+        showToast('Network error', 'error');
+      }
+    }
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = type === 'success' ? '✓ ' + message : '✗ ' + message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.animation = 'fadeOut 0.3s ease forwards';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    loadConfig();
+  </script>
+</body>
+</html>

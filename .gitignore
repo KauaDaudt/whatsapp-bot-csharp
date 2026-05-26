@@ -1,0 +1,21 @@
+# Build
+bin/
+obj/
+
+# Banco de dados
+*.db
+*.db-shm
+*.db-wal
+
+# Segredos
+appsettings.Development.json
+
+# VS Code
+.vscode/
+
+# dotnet
+*.user
+.vs/
+
+# Claude Code
+.claude/
