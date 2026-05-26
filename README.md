@@ -12,6 +12,7 @@ Bot de WhatsApp com inteligência artificial integrada, construído do zero em C
   <img src="https://img.shields.io/badge/SQLite-%23003B57?style=for-the-badge&logo=sqlite&logoColor=white" />
   <img src="https://img.shields.io/badge/Docker-%232496ED?style=for-the-badge&logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/Groq-black?style=for-the-badge&logo=groq&logoColor=white" />
+  <img src="https://img.shields.io/badge/Claude_(Anthropic)-%23CC785C?style=for-the-badge&logo=anthropic&logoColor=white" />
   <img src="https://img.shields.io/badge/Evolution_API-%2325D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
 </p>
 
@@ -122,7 +123,7 @@ Evento: `MESSAGES_UPSERT`
 
 ---
 
-## Variáveis de ambiente sensíveis
+## Variáveis sensíveis
 
 Nunca suba suas chaves reais para o repositório. Use o `appsettings.json` localmente e mantenha os placeholders no arquivo versionado.
 
@@ -131,6 +132,12 @@ Nunca suba suas chaves reais para o repositório. Use o `appsettings.json` local
 | `Groq:ApiKey` | Chave da API do Groq |
 | `Evolution:InstanceName` | Nome da instância na Evolution API |
 | `BotConfig.EvolutionApiKey` | Chave de autenticação da Evolution |
+
+---
+
+## Desenvolvido com o auxílio de
+
+Este projeto foi arquitetado e desenvolvido com o auxílio do **Claude** (Anthropic) via **Claude Code** — desde a estrutura inicial do projeto, resolução de bugs, integração com APIs externas até o deploy com Docker.
 
 ---
 
